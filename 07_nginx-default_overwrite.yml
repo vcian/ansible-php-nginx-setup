@@ -1,0 +1,29 @@
+---
+- name: Overwrite nginx configuration file
+  hosts: test
+  remote_user: ubuntu
+  become: true
+  vars:
+    nginx_config_src: "conf/default"
+    nginx_config_dest: "/etc/nginx/sites-available"
+
+  tasks:
+    - name: Copy nginx configuration file
+      copy:
+        src: "{{ nginx_config_src }}"
+        dest: "{{ nginx_config_dest }}"
+        owner: ubuntu
+        group: root
+        mode: '0644'
+
+    - name: Test nginx configuration
+      command: nginx -t
+      register: nginx_test_result
+      changed_when: false
+      failed_when: "nginx_test_result.rc != 0"
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+      when: nginx_test_result.rc == 0

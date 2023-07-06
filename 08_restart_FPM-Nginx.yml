@@ -1,0 +1,33 @@
+- name: Modify php.ini file
+  hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  remote_user: ubuntu   # Add here Remote User-name
+  become: true
+
+  tasks:
+    - name: Set upload_max_filesize in php.ini
+      lineinfile:
+        path: /etc/php/8.1/fpm/php.ini
+        regexp: '^upload_max_filesize ='
+        line: 'upload_max_filesize = 200M'
+
+    - name: Set post_max_size in php.ini
+      lineinfile:
+        path: /etc/php/8.1/fpm/php.ini
+        regexp: '^post_max_size ='
+        line: '  = 200M'
+
+    - name: Set memory_limit in php.ini
+      lineinfile:
+        path: /etc/php/8.1/fpm/php.ini
+        regexp: '^memory_limit ='
+        line: 'memory_limit = 200M'
+
+    - name: Restart PHP FPM
+      service:
+        name: php8.1-fpm
+        state: restarted
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

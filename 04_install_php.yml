@@ -1,0 +1,33 @@
+---
+- name: Install PHP 8.1
+  hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  remote_user: ubuntu   # Add here Remote User-name
+  become: true
+  
+  tasks:
+    - name: Install software-properties-common
+      apt:
+        name: software-properties-common
+        state: present
+      
+    - name: Add PHP 8.1 repository
+      apt_repository:
+        repo: ppa:ondrej/php
+        state: present
+      
+    - name: Install PHP 8.1 packages
+      apt:
+        name:
+          - php8.1-fpm
+          - php8.1-common
+          - php8.1-mbstring
+          - php8.1-xmlrpc
+          - php8.1-soap
+          - php8.1-gd
+          - php8.1-xml
+          - php8.1-intl
+          - php8.1-mysql
+          - php8.1-cli
+          - php8.1-zip
+          - php8.1-curl
+        state: present

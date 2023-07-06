@@ -1,0 +1,17 @@
+---
+- hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  remote_user: ubuntu   # Add here Remote User-name
+  become: true
+  
+  tasks: 
+    - name: INSTALL NGINX
+      become: true
+      package:
+        name: nginx
+        state: present
+        
+    - name: START NGINX SERVICE
+      become: true
+      service:
+        name: nginx
+        state: started

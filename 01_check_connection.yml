@@ -1,0 +1,6 @@
+---
+- hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  remote_user: ubuntu   # Add here Remote User-name
+  tasks:
+    - name: Ping target server
+      ping:

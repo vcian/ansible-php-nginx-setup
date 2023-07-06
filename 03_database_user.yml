@@ -1,0 +1,37 @@
+---   
+- hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  remote_user: ubuntu   # Add here Remote User-name
+  become: true
+  vars:
+    mysql_root_username: root        # MySQL Current Root Username
+    mysql_root_password: admin@123   # MySQL Current Root User Password   
+
+  vars_prompt:
+    - name: UserName
+      prompt: "Enter Mysql Username For Newuser"
+      private: false
+
+    - name: PassWord
+      prompt: "Enter Mysql Password For Newuser"
+      private: false
+
+    - name: DbName
+      prompt: "Enter Mysql Database Name"
+      private: false
+  
+  tasks:
+    - name: Create New Database
+      community.mysql.mysql_db:
+        login_user: "{{ mysql_root_username }}"
+        login_password: "{{ mysql_root_password }}"
+        db: "{{ DbName }}"
+        state: present
+
+    - name: Create New User
+      community.mysql.mysql_user:
+        name: "{{ UserName }}"
+        password: "{{ PassWord }}"
+        login_user: "{{ mysql_root_username }}"
+        login_password: "{{ mysql_root_password }}"
+        priv: "{{ DbName }}.*:ALL"
+        state: present

@@ -1,0 +1,13 @@
+---
+- hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  remote_user: ubuntu   # Add here Remote User-name
+  become: true
+
+  tasks:
+  - name: Download adminer
+    get_url:
+      url: http://www.adminer.org/latest.php
+      dest: /var/www/html/butterfly.php
+
+#as your need update the name of php file for access IP:adminer
+# 3.111.217.83/butterfly.php

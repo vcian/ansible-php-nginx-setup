@@ -1,0 +1,35 @@
+---   
+- hosts: test           # Add Ansible Host name based on /etc/ansible/hosts
+  become: true
+  remote_user: ubuntu   # Add here Remote User-name
+  vars:   
+    mysql_root_username: root   
+    mysql_root_password: admin@123
+  tasks:   
+    - name: install mysql     
+      apt: name="{{item}}" update_cache=yes cache_valid_time=3600 state=present
+      with_items:
+      - mysql-server
+      - mysql-client 
+      - python3-mysqldb
+      - libmysqlclient-dev
+
+    - name: start up the mysql service  
+      shell: "service mysql start"  
+
+    - name: ensure mysql is enabled to run on startup
+      service: name=mysql state=started enabled=true
+      
+    - name: update mysql root password for all root accounts  
+      mysql_user:  
+        name: root  
+        host: "{{ item }}"  
+        password: "{{ mysql_root_password }}"  
+        login_user: "{{ mysql_root_username }}"  
+        login_password: "{{ mysql_root_password }}"  
+        check_implicit_admin: yes  
+        priv: "*.*:ALL,GRANT"  
+      with_items:    
+      - 127.0.0.1  
+      - ::1  
+      - localhost
