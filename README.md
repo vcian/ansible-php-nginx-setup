@@ -1,9 +1,9 @@
 # Ansible Playbook for PHP-Based Website Environment Setup
-With the help of this Ansible playbook, a PHP-based website environment,  with Nginx Web-server can be quickly set up on a fresh Linux machine. This playbook automates the deployment process and installation processes by utilising the strength and adaptability of Ansible, assuring consistency and minimising manual setup efforts.
+📜 With the help of this Ansible playbook, you can quickly set up a PHP-based website environment with Nginx Web-server on a fresh Linux machine. This playbook automates the deployment process and installation processes, making use of Ansible's strength 💪 and adaptability. It ensures consistency and minimizes manual setup efforts.
 
-Note: Make sure to have SSH access to the target server(s) with the appropriate credentials for Ansible to connect and execute commands remotely.
+⚙️ By leveraging the power of Ansible, you can easily replicate and scale your PHP-based website environment across multiple servers with minimal effort. Enjoy the simplicity ✨ and efficiency ⚡ provided by this playbook, ensuring a consistent and reliable setup for your web applications. 🚀
 
-By leveraging the power of Ansible, you can easily replicate and scale your PHP-based website environment across multiple servers with minimal effort. Enjoy the simplicity and efficiency provided by this playbook, ensuring a consistent and reliable setup for your web applications.
+⚠️ Please ensure that you have SSH access to the target server(s) with the appropriate credentials for Ansible to connect and execute commands remotely 🖥️.
 
 # Install Ansible on Linux
 
@@ -42,6 +42,27 @@ The output should display the installed Ansible version information, confirming 
 $ ansible-galaxy collection install community.mysql
 ```
 
+# Setup Ansible-Hosts file
+
+The /etc/ansible/hosts file is the inventory file used by Ansible to define and organize the hosts (remote servers) that Ansible will manage. It is a text file that lists the hostnames or IP addresses of the remote servers and organizes them into groups.
+
+Where,
+
+[test] = Your target server name.
+
+Replace 3.111.217.83 with your target server IP(s).
+
+```
+$ sudo nano /etc/ansible/hosts
+```
+
+
+```
+# Ansible-Target-Server
+[test]
+3.111.217.83 ansible_ssh_private_key_file=/home/$USER/.ssh/id_rsa
+```
+
 # Ansible Playbooks for Server Configuration
 
 This repository contains a collection of Ansible playbooks and configuration files to automate the setup and configuration of a server. Below is a brief description of each file and its purpose.
@@ -51,7 +72,7 @@ This repository contains a collection of Ansible playbooks and configuration fil
 1) Clone code on your machine.
 
 ```
-$ git clone https://github.com/vcian/php-ansible-setup.git
+$ git clone https://github.com/vcian/ansible-php-nginx-setup.git
 ```
 
 2) Enter in Direcotry.
@@ -119,27 +140,6 @@ This repository contains a collection of Ansible playbooks that can be used to a
 - The default file is a sample Nginx configuration file that can be used as a starting point for your specific server configuration. You can modify it as needed to serve your application.
 
 Please note that before executing these playbooks, you should update the necessary variables (vars) and configurations according to your environment and requirements.
-
-# Setup Ansible-Hosts file
-
-The /etc/ansible/hosts file is the inventory file used by Ansible to define and organize the hosts (remote servers) that Ansible will manage. It is a text file that lists the hostnames or IP addresses of the remote servers and organizes them into groups.
-
-Where,
-[test] = Your target server name.
-Replace 3.111.217.83 with your target server IP(s).
-
-```
-$ sudo nano /etc/ansible/hosts
-```
-
-
-```
-# Ansible-Target-Server
-[test]
-3.111.217.83 ansible_ssh_private_key_file=/home/$USER/.ssh/id_rsa
-```
-
-
 
 ## **Warning**
 
