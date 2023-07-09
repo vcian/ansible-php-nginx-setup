@@ -144,3 +144,25 @@ Please note that before executing these playbooks, you should update the necessa
 ## **Warning**
 
 Assuming you've gone so far as to get Ansible running and have downloaded these playbooks, you probably understand how this stuff works and how much damage it could do. But just in case, These playbooks will remove data, destroy accounts and wreak havoc if pointed to the wrong account. Please be careful, keep backups and read the code before running it.
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+       We believe in 
+            👇
+          ACT NOW
+      PERFECT IT LATER
+    CORRECT IT ON THE WAY.
+
+## Security
+
+If you discover any security-related issues, please email ruchit.patel@viitor.cloud instead of using the issue tracker.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
