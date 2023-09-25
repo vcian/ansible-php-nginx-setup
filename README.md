@@ -12,25 +12,25 @@ To install Ansible on Linux, follow these steps:
 1) Add the Ansible repository to your system's package manager:
 
 ```
-$ sudo apt-add-repository ppa:ansible/ansible
+sudo apt-add-repository ppa:ansible/ansible
 ```
 
 2) Update the package lists to include the newly added repository:
 
 ```
-$ sudo apt update
+sudo apt update
 ```
 
 3) Install Ansible:
 
 ```
-$ sudo apt install ansible
+sudo apt install ansible
 ```
 
 4) Verify the Ansible installation by checking the version:
 
 ```
-$ ansible --version
+ansible --version
 ```
 The output should display the installed Ansible version information, confirming that the installation was successful.
 
@@ -39,12 +39,12 @@ The output should display the installed Ansible version information, confirming 
 - For the create MySQL related user on the target server need to install it in the machine where you are performing this Ansible file.
 
 ```
-$ ansible-galaxy collection install community.mysql
+ansible-galaxy collection install community.mysql
 ```
 
 # Setup Ansible-Hosts file
 
-The /etc/ansible/hosts file is the inventory file used by Ansible to define and organize the hosts (remote servers) that Ansible will manage. It is a text file that lists the hostnames or IP addresses of the remote servers and organizes them into groups.
+The hosts file is the inventory file used by Ansible to define and organize the hosts (remote servers) that Ansible will manage. It is a text file that lists the hostnames or IP addresses of the remote servers and organizes them into groups.
 
 Where,
 
@@ -53,9 +53,8 @@ Where,
 Replace 3.111.217.83 with your target server IP(s).
 
 ```
-$ sudo nano /etc/ansible/hosts
+sudo nano hosts
 ```
-
 
 ```
 # Ansible-Target-Server
@@ -72,19 +71,19 @@ This repository contains a collection of Ansible playbooks and configuration fil
 1) Clone code on your machine.
 
 ```
-$ git clone https://github.com/vcian/ansible-php-nginx-setup.git
+git clone https://github.com/vcian/ansible-php-nginx-setup.git
 ```
 
 2) Enter in Direcotry.
 
 ```
-$ cd php-ansible-setup
+cd php-ansible-setup
 ```
 
 3) Run Playbook.
 
 ```
-$ ansible-playbook *.yml
+ansible-playbook playbook/*.yml -i hosts -u ubuntu
 ```
 
 
@@ -92,19 +91,24 @@ $ ansible-playbook *.yml
 
 ```
 .
-├── 01_check_connection.yml
-├── 02_install_mysql.yml
-├── 03_database_user.yml
-├── 04_install_php.yml
-├── 05_install_nginx.yml
-├── 06_download_adminer.yml
-├── 07_nginx-default_overwrite.yml
-├── 08_restart_FPM-Nginx.yml
-├── conf
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── hosts
+├── LICENSE.md
+├── nginx-conf
 │   └── default
+├── playbook
+│   ├── 01_check_connection.yml
+│   ├── 02_install_mysql.yml
+│   ├── 03_database_user.yml
+│   ├── 04_install_php.yml
+│   ├── 05_install_nginx.yml
+│   ├── 06_download_adminer.yml
+│   ├── 07_nginx-default_overwrite.yml
+│   └── 08_restart_FPM-Nginx.yml
 └── README.md
 
-1 directory, 10 files
+2 directories, 14 files
 ```
 
 ### Ansible-playbook Details
@@ -136,7 +140,7 @@ This repository contains a collection of Ansible playbooks that can be used to a
 - This playbook restarts the PHP-FPM and Nginx services to apply the configuration changes and update the upgrade the value of 
 `upload_max_filesize` & `post_max_size` & `memory_limit` after restart php fpm. 
 
-`conf/default`
+`nginx-conf/default`
 - The default file is a sample Nginx configuration file that can be used as a starting point for your specific server configuration. You can modify it as needed to serve your application.
 
 Please note that before executing these playbooks, you should update the necessary variables (vars) and configurations according to your environment and requirements.
